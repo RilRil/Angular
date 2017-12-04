@@ -1,0 +1,10 @@
+.tmp/
+
+.idea
+node_modules
+npm-debug.log
+debug.log
+client/**/*.js
+!client/systemjs.config.js
+!client/systemjs-angular-loader.js
+*.js.map
