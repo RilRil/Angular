@@ -2,7 +2,7 @@
     "compilerOptions": {
       "isolatedModules": true,
       "target": "es5",
-      "module": "commonjs",
+      "module": "es6",
       "moduleResolution": "node",
       "sourceMap": true,
       "emitDecoratorMetadata": true,
@@ -10,6 +10,7 @@
       "lib": [ "es2015", "dom" ],
       "noImplicitAny": true,
       "suppressImplicitAnyIndexErrors": true,
+      "removeComments": true
     },
     "include": [
       "client/**/*.ts"

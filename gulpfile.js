@@ -5,6 +5,8 @@ const bs = require('browser-sync').create();
 const del = require('del');
 const ts = require('gulp-typescript');
 const debug = require('gulp-debug');
+const rollup = require('gulp-better-rollup');
+
 
 const config = {
 	dir: {
@@ -71,6 +73,18 @@ function serve() {
 		}
 	});
 }
+
+//-- TODO
+function bundle() {
+	return gulp.src('.tmp/serve/boot.js')
+		.pipe(debug({ title: 'rollup' }))
+		.pipe(rollup({
+			format: 'es'
+		}))
+		.pipe(gulp.dest('.tmp/'))
+}
+exports.bundle = bundle;
+//--
 
 var parallel = gulp.parallel(copyHTML, copyJS, bundleVendors, transpileTS);
 var build = gulp.series(clean, parallel, serve);
