@@ -1,7 +1,10 @@
 {
-    "vendors": [
+    "js": [
         "node_modules/core-js/client/shim.min.js",
         "node_modules/zone.js/dist/zone.js",
         "node_modules/systemjs/dist/system.src.js"
+    ],
+    "css": [
+        "node_modules/bootstrap/dist/css/bootstrap.min.css"
     ]
 }

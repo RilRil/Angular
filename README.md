@@ -1,5 +1,5 @@
 # Angular 
-Angular seed project using the latest version of Angular, Typescript, SystemJS, Gulp, BrowserSync...
+Angular seed project using the latest version of Angular, Typescript, SystemJS, Gulp, BrowserSync, Bootstrap, ...
 
 ## Versions used
 
@@ -7,6 +7,7 @@ Angular seed project using the latest version of Angular, Typescript, SystemJS, 
 * Typescript 2.6
 * Gulp 4
 * SystemJS 0.20
+* Bootstrap 4
 
 ## How to use it
 ```

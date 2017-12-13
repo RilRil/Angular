@@ -37,10 +37,17 @@ function transpileTS() {
 }
 
 
-function bundleVendors() {
-	let vendors = require(config.vendors).vendors;
+function bundleVendorsJS() {
+	let vendors = require(config.vendors).js;
 	return gulp.src(vendors)
 		.pipe(concat('vendors.js'))
+		.pipe(gulp.dest(config.dir.serve));
+}
+
+function bundleVendorsCSS() {
+	let vendors = require(config.vendors).css;
+	return gulp.src(vendors)
+		.pipe(concat('vendors.css'))
 		.pipe(gulp.dest(config.dir.serve));
 }
 
@@ -101,7 +108,14 @@ function bundle() {
 exports.bundle = bundle;
 //--
 
-var parallel = gulp.parallel(copyHTML, copyJS, bundleVendors, transpileLESS, transpileTS);
+var parallel = gulp.parallel(
+	copyHTML,
+	copyJS,
+	bundleVendorsJS,
+	bundleVendorsCSS,
+	transpileLESS,
+	transpileTS
+);
 var build = gulp.series(clean, parallel, serve);
 
 gulp.task('default', gulp.parallel(build, watch));
