@@ -6,8 +6,9 @@ const del = require('del');
 const ts = require('gulp-typescript');
 const debug = require('gulp-debug');
 const rollup = require('gulp-better-rollup');
-
-
+const less = require('gulp-less');
+const path = require('path');
+const sourcemaps = require('gulp-sourcemaps');
 const config = {
 	dir: {
 		tmp: './.tmp/',
@@ -19,12 +20,13 @@ const config = {
 	vendors: './build/vendors.json'
 }
 
-
 let reload = (done) => {
 	bs.reload();
 	done();
 };
 let tsProject = ts.createProject(config.tsconfig);
+
+
 
 function transpileTS() {
 	var tsResult = gulp.src(config.dir.client + '/**/*.ts', { since: gulp.lastRun(transpileTS) })
@@ -53,6 +55,18 @@ function copyJS() {
 		.pipe(gulp.dest(config.dir.serve));
 }
 
+function transpileLESS() {
+	return gulp.src(config.dir.client + '/**/*.less')
+		.pipe(sourcemaps.init())
+		.pipe(less({
+			paths: [path.join(__dirname, 'styles')]
+		}))
+		.pipe(concat('styles.css'))
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest(config.dir.serve))
+		.pipe(bs.stream());
+}
+
 function clean() {
 	return del([config.dir.tmp]);
 }
@@ -61,6 +75,7 @@ function watch() {
 	gulp.watch(config.dir.client + '/**/*.ts', gulp.series(transpileTS, reload));
 	gulp.watch(config.dir.client + '/**/*.html', gulp.series(copyHTML, reload));
 	gulp.watch(config.dir.client + '/**/*.js', gulp.series(copyJS, reload));
+	gulp.watch(config.dir.client + '/**/*.less', transpileLESS);
 }
 
 function serve() {
@@ -86,7 +101,7 @@ function bundle() {
 exports.bundle = bundle;
 //--
 
-var parallel = gulp.parallel(copyHTML, copyJS, bundleVendors, transpileTS);
+var parallel = gulp.parallel(copyHTML, copyJS, bundleVendors, transpileLESS, transpileTS);
 var build = gulp.series(clean, parallel, serve);
 
 gulp.task('default', gulp.parallel(build, watch));

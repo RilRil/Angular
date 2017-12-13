@@ -1,12 +1,10 @@
 # Angular 
 Angular seed project using the latest version of Angular, Typescript, SystemJS, Gulp, BrowserSync...
 
-With live reload.
-
 ## Versions used
 
-* Angular 5.0
-* Typescript 2.5
+* Angular 5.1
+* Typescript 2.6
 * Gulp 4
 * SystemJS 0.20
 
