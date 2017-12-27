@@ -50,8 +50,16 @@ function bundleVendorsCSS() {
 		.pipe(concat('vendors.css'))
 		.pipe(gulp.dest(config.dir.serve));
 }
-
-
+function copyAssets() {
+	return gulp.src(config.dir.client + '/assets/**/*', { since: gulp.lastRun(copyAssets) })
+		.pipe(debug({ title: 'Copying Assets' }))
+		.pipe(gulp.dest(config.dir.serve + '/assets/'));
+}
+function copyWebmanifest() {
+	return gulp.src(config.dir.client + '/manifest.json', { since: gulp.lastRun(copyWebmanifest) })
+		.pipe(debug({ title: 'Copying Webmanifest' }))
+		.pipe(gulp.dest(config.dir.serve));
+}
 function copyHTML() {
 	return gulp.src(config.dir.client + '/**/*.html', { since: gulp.lastRun(copyHTML) })
 		.pipe(debug({ title: 'Copying HTML' }))
@@ -90,7 +98,8 @@ function serve() {
 		server: {
 			baseDir: config.dir.serve,
 			routes: {
-				'/node_modules': 'node_modules'
+				'/node_modules': 'node_modules',
+				'/.tmp/serve/assets': 'assets'
 			}
 		}
 	});
@@ -109,6 +118,8 @@ exports.bundle = bundle;
 //--
 
 var parallel = gulp.parallel(
+	copyAssets,
+	copyWebmanifest,
 	copyHTML,
 	copyJS,
 	bundleVendorsJS,
