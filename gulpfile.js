@@ -62,6 +62,11 @@ function copyJS() {
 		.pipe(gulp.dest(config.dir.serve));
 }
 
+function copyManifest() {
+	return gulp.src(config.dir.client + '/manifest.json', { since: gulp.lastRun(copyManifest) })
+		.pipe(gulp.dest(config.dir.serve));
+}
+
 function transpileLESS() {
 	return gulp.src(config.dir.client + '/**/*.less')
 		.pipe(sourcemaps.init())
@@ -111,6 +116,7 @@ exports.bundle = bundle;
 var parallel = gulp.parallel(
 	copyHTML,
 	copyJS,
+	copyManifest,
 	bundleVendorsJS,
 	bundleVendorsCSS,
 	transpileLESS,

@@ -25,7 +25,6 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 
       // other libraries
-
       "ts": "npm:plugin-typescript",
       "typescript": "npm:typescript",
       'rxjs': 'npm:rxjs',

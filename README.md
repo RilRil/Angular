@@ -3,8 +3,8 @@ Angular seed project using the latest version of Angular, Typescript, SystemJS, 
 
 ## Versions used
 
-* Angular 5.1
-* Typescript 2.6
+* Angular 5.2
+* Typescript 2.7
 * Gulp 4
 * SystemJS 0.20
 * Bootstrap 4
